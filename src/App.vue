@@ -1,6 +1,26 @@
 <template>
   <h2>{{ title }}</h2>
-  <Modal :header="header" :description="description" theme="sale" />
+  <div v-if="showModal">
+    <Modal theme="" @close="toggleModal" >
+      <template v-slot:links>
+        <a href="#">Signup here</a>
+        <a href="#">Login here</a>
+      </template>
+      <h1>Signup Modal</h1>
+      <p>This is signup modal, please work with us</p>
+    </Modal>
+  </div>
+
+  <div v-if="showModalTwo">
+    <Modal theme="sale" @close="toggleModalTwo" >
+      <h1>Signup To the Newslater</h1>
+      <p>Get recent updates and news about our products</p>
+    </Modal>
+  </div>
+
+  <p>Welcome ..</p>
+  <button @click="toggleModal">Show Modal</button>
+  <button @click="toggleModalTwo">Show Modal rwo</button>
 </template>
 
 <script>
@@ -14,8 +34,8 @@ export default {
   data() {
     return {
       title: 'My First vuejs App',
-      header: 'Signup Modal',
-      description: 'This is signup modal, please work with us'
+      showModal: false,
+      showModalTwo: false
     }
   },
   methods: {
@@ -23,6 +43,12 @@ export default {
       console.log(this.$refs.name)
       this.$refs.name.classList.add('active')
       this.$refs.name.focus()
+    },
+    toggleModal() {
+      this.showModal = !this.showModal
+    },
+    toggleModalTwo() {
+      this.showModalTwo = !this.showModalTwo
     }
   }
 }
@@ -39,8 +65,8 @@ export default {
 }
 
 h2{
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   display: inline-block;
-  padding-bottom: 10px;
+  padding-bottom: 6px;
 }
 </style>

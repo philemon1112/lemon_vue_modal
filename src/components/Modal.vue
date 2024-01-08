@@ -1,15 +1,34 @@
 <template>
-    <div class="backdrop">
+    <div class="backdrop" @click.self="closeModal">
         <div class="modal" :class="{sale : theme === 'sale'}">
-            <h1>{{  header }}</h1>
-            <p>{{ description }}</p>
+            <slot></slot>
+            <div class="actions">
+                <slot name="links"></slot>
+            </div>
+        </div>
+    </div>
+
+    <div class="backdrop" @click.self="closeModalTwo">
+        <div class="modal" :class="{sale : theme === 'sale'}">
+            <slot></slot>
+            <div class="actions">
+                <slot name="links"></slot>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['header', 'description', 'theme'],
+    props: ['theme'],
+    methods: {
+        closeModal(){
+            this.$emit('close')
+        },
+        closeModalTwo(){    
+            this.$emit('close')
+        }
+    }
 }
 </script>
 
@@ -17,7 +36,7 @@ export default {
 .modal{
     width: 400px;
     padding: 20px;
-    margin: 10px auto;
+    margin: 40px auto;
     background: #fff;
     border-radius: 10px;
 }
@@ -47,8 +66,16 @@ export default {
     color: rgb(67, 183, 183);
     border-bottom: 1px solid #ddd;
     display: inline-block;
-    padding-bottom: 6px;
+    padding-bottom: 2px;
     font: 2em sans-serif;
     font-weight: 700;
+}
+
+a{
+    border: 1px solid #ddd;
+    text-decoration: none;
+    padding: 10px 16px;
+    margin: 10px;
+    color: black;
 }
 </style>
